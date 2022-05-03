@@ -1,6 +1,7 @@
 ﻿using Findmaster.DataAccessLayer.DataContext;
 using Findmaster.DataAccessLayer.DTO;
 using Findmaster.DataAccessLayer.Entity;
+using Findmaster.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -17,6 +18,7 @@ namespace Findmaster.Controllers
     {
         private readonly DatabaseContext _context;
         private readonly IConfiguration _configuration;
+        public int VerificationCode;
 
         public AuthController(DatabaseContext context, IConfiguration configuration)
         {
@@ -98,6 +100,26 @@ namespace Findmaster.Controllers
                 var computedHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(UserPassword));
                 return computedHash.SequenceEqual(UserPasswordHash);
             }
+        }
+
+        private async void SendVerificationMail(string mail)
+        {
+            Random random = new Random();
+            VerificationCode = random.Next(1000, 9999);
+            String VerificationCodeString = VerificationCode.ToString();
+            EmailService emailService = new EmailService();
+            await emailService.SendEmailAsync(mail, "Verification Code", VerificationCodeString);
+        }
+
+        //placeholder need to think about logic
+        private bool CompareVerificationCode(string code)
+        {
+            int codenumber = int.Parse(code);
+            if(codenumber == VerificationCode)
+            {
+                return true;    
+            }
+            return false;
         }
     }
 }
