@@ -88,5 +88,12 @@ namespace Findmaster.Controllers
             return Ok();
         }
 
+        //[HttpGet("Get All Favourites")]
+        //public async Task<IActionResult> GetFavourites(String UserId)
+        //{
+
+        //    var favourites = _context.Favourites.Where(u => u.Users.UserId == UserId);
+        //    return Ok(favourites);
+        //}
     }
 }

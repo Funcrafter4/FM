@@ -4,7 +4,7 @@ namespace Findmaster.DataAccessLayer.Entity
 {
     public class User_Type
     {
-        [ForeignKey("userId")]
+        [ForeignKey("UserId")]
         public int UserId { get; set; }
         public int UserType { get; set; }
     }
