@@ -30,7 +30,15 @@ namespace Findmaster.Controllers
         {
             _context.Vacancies.Add(vacancy);
             await _context.SaveChangesAsync();
-            return Ok(await _context.Vacancies.ToListAsync());
+            return Ok();
+        }
+
+        [HttpPost("Add Application")]
+        public async Task<IActionResult> AddApplication(Applications applications)
+        {
+            _context.Applications.Add(applications);
+            await _context.SaveChangesAsync();
+            return Ok();
         }
 
         [HttpGet("{VacancyId}")]
@@ -70,13 +78,15 @@ namespace Findmaster.Controllers
             return Ok(vacancies);
         }
 
-        //[HttpGet("IsFavourite")]
-        //public async Task<IActionResult> IsFavourite(String VacancyId, String UserId){
 
-        //    var dbfavourite = _context.Users.Join(_context.Vacancies, u => u.UserId, v => v.VacancyId,(v, c) => {
+        [HttpPost("Add Favourite")]
+        public async Task<IActionResult> AddFavourite(Favourite favourite)
+        {
+            
+            _context.Favourites.Add(favourite);
+            await _context.SaveChangesAsync();
+            return Ok();
+        }
 
-        //    }
-        //    )
-        //}
     }
 }
