@@ -33,13 +33,6 @@ namespace Findmaster.Controllers
             return Ok();
         }
 
-        [HttpPost("Add Application")]
-        public async Task<IActionResult> AddApplication(Applications applications)
-        {
-            _context.Applications.Add(applications);
-            await _context.SaveChangesAsync();
-            return Ok();
-        }
 
         [HttpGet("{VacancyId}")]
         public async Task<IActionResult> GetVacancy(int VacancyId)
@@ -78,6 +71,13 @@ namespace Findmaster.Controllers
             return Ok(vacancies);
         }
 
+        [HttpPost("Add Application")]
+        public async Task<IActionResult> AddApplication(Applications applications)
+        {
+            _context.Applications.Add(applications);
+            await _context.SaveChangesAsync();
+            return Ok();
+        }
 
         [HttpPost("Add Favourite")]
         public async Task<IActionResult> AddFavourite(Favourite favourite)
@@ -88,12 +88,24 @@ namespace Findmaster.Controllers
             return Ok();
         }
 
-        //[HttpGet("Get All Favourites")]
-        //public async Task<IActionResult> GetFavourites(String UserId)
-        //{
+        [HttpGet("Get All Favourites")]
+        public async Task<IActionResult> GetFavourites(int UserId)
+        {
 
-        //    var favourites = _context.Favourites.Where(u => u.Users.UserId == UserId);
-        //    return Ok(favourites);
-        //}
+            var favourites = _context.Favourites.Where(u => u.UserId == UserId);
+            //favourites.UserId figure out how make(1 is placeholder)
+            var dbvacancy = _context.Vacancies.Where(v => v.VacancyId == 1);
+            return Ok(dbvacancy);
+        }
+
+        [HttpGet("Get All Applications")]
+        public async Task<IActionResult> GetApplication(int UserId)
+        {
+
+            var applications = _context.Applications.Where(u => u.UserId == UserId);
+            //applications.UserId figure out how make(1 is placeholder)
+            var dbvacancy = _context.Vacancies.Where(v => v.VacancyId == 1);
+            return Ok(dbvacancy);
+        }
     }
 }

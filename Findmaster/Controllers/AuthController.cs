@@ -111,7 +111,7 @@ namespace Findmaster.Controllers
             await emailService.SendEmailAsync(mail, "Verification Code", VerificationCodeString);
         }
 
-        //placeholder need to think about logic
+        //placeholder need to think about logic(when connect front to back)
         private bool CompareVerificationCode(string code)
         {
             int codenumber = int.Parse(code);
