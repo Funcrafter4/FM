@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Findmaster.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/vacancies")]
     [ApiController]
     public class VacanciesController : ControllerBase
     {
@@ -92,9 +92,23 @@ namespace Findmaster.Controllers
         public async Task<IActionResult> GetFavourites(int UserId)
         {
 
-            var favourites = _context.Favourites.Where(u => u.UserId == UserId);
-            //favourites.UserId figure out how make(1 is placeholder)
-            var dbvacancy = _context.Vacancies.Where(v => v.VacancyId == 1);
+            var dbvacancy = (from u in _context.Favourites
+                             join v in _context.Vacancies on u.VacancyId equals v.VacancyId
+                             where u.UserId == UserId
+                             select new
+                             {
+                                 v.VacancyId,
+                                 v.VacancyName,
+                                 v.VacancyAddress,
+                                 v.VacancyExp,
+                                 v.VacancySalary,
+                                 v.VacancyDescription,
+                                 v.VacancyEmployerName,
+                                 v.VacancyEmploymentType,
+                                 v.VacancyRequirements,
+                                 v.VacancyDatePosted
+                             }).ToList();
+
             return Ok(dbvacancy);
         }
 
@@ -102,9 +116,23 @@ namespace Findmaster.Controllers
         public async Task<IActionResult> GetApplication(int UserId)
         {
 
-            var applications = _context.Applications.Where(u => u.UserId == UserId);
-            //applications.UserId figure out how make(1 is placeholder)
-            var dbvacancy = _context.Vacancies.Where(v => v.VacancyId == 1);
+            var dbvacancy = (from u in _context.Applications
+                             join v in _context.Vacancies on u.VacancyId equals v.VacancyId
+                             where u.UserId == UserId
+                             select new
+                             {
+                                 v.VacancyId,
+                                 v.VacancyName,
+                                 v.VacancyAddress,
+                                 v.VacancyExp,
+                                 v.VacancySalary,
+                                 v.VacancyDescription,
+                                 v.VacancyEmployerName,
+                                 v.VacancyEmploymentType,
+                                 v.VacancyRequirements,
+                                 v.VacancyDatePosted
+                             }).ToList();
+
             return Ok(dbvacancy);
         }
     }

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Findmaster.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/controller/profile")]
     [ApiController]
     public class ProfileController : ControllerBase
     {
