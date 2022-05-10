@@ -12,7 +12,7 @@ using System.Security.Cryptography;
 
 namespace Findmaster.Controllers
 {
-    [Route("api/[controller]/auth")]
+    [Route("api/[controller]")]
     [ApiController]
     public class AuthController : ControllerBase
     {
