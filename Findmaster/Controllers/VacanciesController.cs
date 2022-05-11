@@ -18,14 +18,14 @@ namespace Findmaster.Controllers
         }
 
 
-        [HttpGet("Get All Vacancies")]
+        [HttpGet("Get_All_Vacancies")]
         public async Task<IActionResult> GetVacancies()
         {
             var vacancies = _context.Vacancies.ToListAsync();
             return Ok(vacancies);
         }
 
-        [HttpPost("Add Vacancy")]
+        [HttpPost("Add_Vacancy")]
         public async Task<IActionResult> AddVacancies(Vacancy vacancy)
         {
             _context.Vacancies.Add(vacancy);
@@ -71,7 +71,7 @@ namespace Findmaster.Controllers
             return Ok(vacancies);
         }
 
-        [HttpPost("Add Application")]
+        [HttpPost("Add_Application")]
         public async Task<IActionResult> AddApplication(Applications applications)
         {
             _context.Applications.Add(applications);
@@ -79,7 +79,7 @@ namespace Findmaster.Controllers
             return Ok();
         }
 
-        [HttpPost("Add Favourite")]
+        [HttpPost("Add_Favourite")]
         public async Task<IActionResult> AddFavourite(Favourite favourite)
         {
             
@@ -88,7 +88,7 @@ namespace Findmaster.Controllers
             return Ok();
         }
 
-        [HttpGet("Get All Favourites")]
+        [HttpGet("Get_All_Favourites")]
         public async Task<IActionResult> GetFavourites(int UserId)
         {
 
@@ -112,7 +112,7 @@ namespace Findmaster.Controllers
             return Ok(dbvacancy);
         }
 
-        [HttpGet("Get All Applications")]
+        [HttpGet("Get_All_Applications")]
         public async Task<IActionResult> GetApplication(int UserId)
         {
 

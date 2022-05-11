@@ -15,6 +15,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme);
 
 var app = builder.Build();
 app.MapControllers();
+app.UseDeveloperExceptionPage();
 app.UseSwagger();
 app.UseSwaggerUI(options => {
     options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
