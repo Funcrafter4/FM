@@ -1,5 +1,6 @@
 using Findmaster.Controllers;
 using Findmaster.DataAccessLayer.DataContext;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
@@ -10,6 +11,7 @@ builder.Services.AddRazorPages();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddControllers();
 builder.Services.AddSwaggerGen();
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme);
 
 var app = builder.Build();
 app.MapControllers();
@@ -30,8 +32,8 @@ if (!app.Environment.IsDevelopment())
 
 void ConfigureServices(IServiceCollection services)
 {
-    services.AddDbContext<DatabaseContext>(opt => 
-    opt.UseNpgsql("Host = localhost; Port = 5432; Database = usersdb; Username = postgres; Password = 1"));
+    services.AddDbContext<DatabaseContext>(opt =>
+    opt.UseNpgsql("Host = abul.db.elephantsql.com; Port = 5432; Database = xpichrsv; Username = xpichrsv; Password = qipQnRJQOoZOt6tnukvrY97p-krIakrB"));
     services.AddControllers();
     services.AddControllersWithViews();
     services.AddRouting();
