@@ -20,12 +20,6 @@ namespace Findmaster.DataAccessLayer.DataContext
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            #region Applications
-            modelBuilder.Entity<Applications>().HasNoKey();
-            #endregion
-            #region Favourite
-            modelBuilder.Entity<Favourite>().HasNoKey();
-            #endregion
             #region UserInfo
             modelBuilder.Entity<User_Info>().HasKey(ui => new { ui.UserId});
             #endregion

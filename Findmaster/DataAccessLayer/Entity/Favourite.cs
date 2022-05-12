@@ -4,6 +4,8 @@ namespace Findmaster.DataAccessLayer.Entity
 {
     public class Favourite
     {
+        
+        public int FavouriteId { get; set; }
         [ForeignKey("UserId")]
         public int UserId { get; set; }
         [ForeignKey("VacancyId")]
