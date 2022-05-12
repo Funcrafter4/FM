@@ -21,7 +21,7 @@ namespace Findmaster.Controllers
         [HttpGet("Get_All_Vacancies")]
         public async Task<IActionResult> GetVacancies()
         {
-            var vacancies = _context.Vacancies.ToListAsync();
+            var vacancies = _context.Vacancies;
             return Ok(vacancies);
         }
 
