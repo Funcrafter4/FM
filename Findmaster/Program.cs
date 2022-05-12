@@ -1,15 +1,17 @@
-using Findmaster.Controllers;
 using Findmaster.DataAccessLayer.DataContext;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddDbContext<DatabaseContext>(opt =>
+opt.UseNpgsql("Host = abul.db.elephantsql.com; Port = 5432; Database = xpichrsv; Username = xpichrsv; Password = qipQnRJQOoZOt6tnukvrY97p-krIakrB"));
 builder.Services.AddControllers();
+builder.Services.AddControllersWithViews();
+builder.Services.AddRouting();
 builder.Services.AddSwaggerGen();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme);
 
@@ -21,6 +23,7 @@ app.UseSwaggerUI(options => {
     options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
     options.RoutePrefix = string.Empty;
 });
+app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
@@ -44,16 +47,6 @@ void ConfigureServices(IServiceCollection services)
 
 void Configure(IApplicationBuilder app)
 {
-    app.UseDeveloperExceptionPage();
-
-    app.UseDefaultFiles();
-    app.UseStaticFiles();
-
-    app.UseRouting();
-    
-    app.UseAuthentication();
-    app.UseAuthorization();
-    app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 }
 
     if (app.Environment.IsDevelopment())
@@ -62,11 +55,12 @@ void Configure(IApplicationBuilder app)
 
 
     app.UseHttpsRedirection();
-    app.UseStaticFiles();
+app.UseDefaultFiles();
+app.UseStaticFiles();
 
     app.UseRouting();
 
-
-    app.MapRazorPages();
+app.UseAuthorization();
+app.MapRazorPages();
 
     app.Run();
