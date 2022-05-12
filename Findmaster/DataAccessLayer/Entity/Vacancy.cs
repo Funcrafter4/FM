@@ -1,4 +1,6 @@
-﻿namespace Findmaster.DataAccessLayer.Entity
+﻿
+
+namespace Findmaster.DataAccessLayer.Entity
 {
     public class Vacancy
     {
@@ -18,7 +20,5 @@
         public string VacancyEmploymentType { get; set; }
 
         public string VacancyDescription { get; set; }
-
-        public byte[] VacancyDatePosted { get; set; }
     }
 }

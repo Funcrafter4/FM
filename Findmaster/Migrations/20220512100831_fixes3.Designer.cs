@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Findmaster.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20220427142129_fm")]
-    partial class fm
+    [Migration("20220512100831_fixes3")]
+    partial class fixes3
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -26,11 +26,23 @@ namespace Findmaster.Migrations
 
             modelBuilder.Entity("Findmaster.DataAccessLayer.Entity.Applications", b =>
                 {
+                    b.Property<int>("UserId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("VacancyId")
+                        .HasColumnType("integer");
+
                     b.ToTable("Applications");
                 });
 
             modelBuilder.Entity("Findmaster.DataAccessLayer.Entity.Favourite", b =>
                 {
+                    b.Property<int>("UserId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("VacancyId")
+                        .HasColumnType("integer");
+
                     b.ToTable("Favourites");
                 });
 
@@ -157,12 +169,6 @@ namespace Findmaster.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)")
                         .HasColumnName("vacancy_address");
-
-                    b.Property<byte[]>("VacancyDatePosted")
-                        .IsConcurrencyToken()
-                        .IsRequired()
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("bytea");
 
                     b.Property<string>("VacancyDescription")
                         .IsRequired()

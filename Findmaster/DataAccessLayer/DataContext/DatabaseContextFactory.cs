@@ -8,7 +8,7 @@ namespace Findmaster.DataAccessLayer.DataContext
         public DatabaseContext CreateDbContext(string[] args)
         {
             var optionsBuilder = new DbContextOptionsBuilder();
-            optionsBuilder.UseNpgsql("Host = abul.db.elephantsql.com; Port = 5432; Database = xpichrsv; Username = xpichrsv; Password = qipQnRJQOoZOt6tnukvrY97p-krIakrB");
+            optionsBuilder.UseNpgsql("Host = abul.db.elephantsql.com; Port = 5432; Database = gepagwva; Username = gepagwva; Password = QCfayoFrlibAbMUqZiEBXwLKH5ZG0lXM");
 
             return new DatabaseContext(optionsBuilder.Options);
         }

@@ -168,12 +168,6 @@ namespace Findmaster.Migrations
                         .HasColumnType("character varying(100)")
                         .HasColumnName("vacancy_address");
 
-                    b.Property<byte[]>("VacancyDatePosted")
-                        .IsConcurrencyToken()
-                        .IsRequired()
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("bytea");
-
                     b.Property<string>("VacancyDescription")
                         .IsRequired()
                         .HasMaxLength(10000)

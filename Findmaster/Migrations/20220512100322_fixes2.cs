@@ -6,7 +6,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Findmaster.Migrations
 {
-    public partial class fm : Migration
+    public partial class fixes2 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -14,6 +14,8 @@ namespace Findmaster.Migrations
                 name: "Applications",
                 columns: table => new
                 {
+                    UserId = table.Column<int>(type: "integer", nullable: false),
+                    VacancyId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -23,6 +25,8 @@ namespace Findmaster.Migrations
                 name: "Favourites",
                 columns: table => new
                 {
+                    UserId = table.Column<int>(type: "integer", nullable: false),
+                    VacancyId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -89,8 +93,7 @@ namespace Findmaster.Migrations
                     vacancy_requirements = table.Column<string>(type: "character varying(10000)", maxLength: 10000, nullable: false),
                     vacancy_experience = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
                     vacancy_employment_type = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
-                    vacancy_description = table.Column<string>(type: "character varying(10000)", maxLength: 10000, nullable: false),
-                    VacancyDatePosted = table.Column<byte[]>(type: "bytea", rowVersion: true, nullable: false)
+                    vacancy_description = table.Column<string>(type: "character varying(10000)", maxLength: 10000, nullable: false)
                 },
                 constraints: table =>
                 {

@@ -105,8 +105,7 @@ namespace Findmaster.Controllers
                                  v.VacancyDescription,
                                  v.VacancyEmployerName,
                                  v.VacancyEmploymentType,
-                                 v.VacancyRequirements,
-                                 v.VacancyDatePosted
+                                 v.VacancyRequirements
                              }).ToList();
 
             return Ok(dbvacancy);
@@ -129,8 +128,7 @@ namespace Findmaster.Controllers
                                  v.VacancyDescription,
                                  v.VacancyEmployerName,
                                  v.VacancyEmploymentType,
-                                 v.VacancyRequirements,
-                                 v.VacancyDatePosted
+                                 v.VacancyRequirements
                              }).ToList();
 
             return Ok(dbvacancy);

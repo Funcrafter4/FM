@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Findmaster.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20220503173836_test")]
-    partial class test
+    [Migration("20220512100322_fixes2")]
+    partial class fixes2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -169,12 +169,6 @@ namespace Findmaster.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)")
                         .HasColumnName("vacancy_address");
-
-                    b.Property<byte[]>("VacancyDatePosted")
-                        .IsConcurrencyToken()
-                        .IsRequired()
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("bytea");
 
                     b.Property<string>("VacancyDescription")
                         .IsRequired()

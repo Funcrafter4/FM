@@ -2,6 +2,13 @@
 {
     public class User
     {
+        public User(string userEmail, byte[] userPasswordHash, byte[] userPasswordSalt)
+        {
+            UserEmail = userEmail;
+            UserPasswordHash = userPasswordHash;
+            UserPasswordSalt = userPasswordSalt;
+        }
+
         public int UserId { get; set; }
         public string UserEmail { get; set; }
 

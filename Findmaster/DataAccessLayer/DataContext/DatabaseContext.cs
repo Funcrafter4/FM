@@ -54,7 +54,6 @@ namespace Findmaster.DataAccessLayer.DataContext
             modelBuilder.Entity<Vacancy>().Property(vc => vc.VacancyDescription).IsRequired(true).HasMaxLength(10000).HasColumnName("vacancy_description");
             modelBuilder.Entity<Vacancy>().Property(vc => vc.VacancyExp).IsRequired(true).HasMaxLength(100).HasColumnName("vacancy_experience");
             modelBuilder.Entity<Vacancy>().Property(vc => vc.VacancyEmploymentType).IsRequired(true).HasMaxLength(100).HasColumnName("vacancy_employment_type");
-            modelBuilder.Entity<Vacancy>().Property(vc => vc.VacancyDatePosted).IsRowVersion();
             #endregion
 
             // использование Fluent API

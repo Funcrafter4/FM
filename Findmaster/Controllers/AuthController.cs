@@ -27,32 +27,31 @@ namespace Findmaster.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<ActionResult<User>> Register(UserDto request)
+        public async Task<ActionResult<User>> Register(String UserEmail, String UserPassword, String UserName, String UserSurname)
         {
-            var dbuser = await _context.Users.FirstOrDefaultAsync();
+            var dbuser = await _context.Users.Where(u => u.UserEmail == UserEmail).FirstOrDefaultAsync();
             if (dbuser == null)
             {
-                CreatePasswordHash(request.UserPassword, out byte[] UserPasswordHash, out byte[] UserPasswordSalt);
-                dbuser.UserEmail = request.UserEmail;
-                dbuser.UserPasswordHash = UserPasswordHash;
-                dbuser.UserPasswordSalt = UserPasswordSalt;
-
+                CreatePasswordHash(UserPassword, out byte[] UserPasswordHash, out byte[] UserPasswordSalt);
+                _context.Users.Add(new User(UserEmail, UserPasswordHash, UserPasswordSalt));
+                //_context.Users_Info.Add(user_Info);
+                await _context.SaveChangesAsync();
                 return Ok(dbuser);
             }
             return BadRequest("User Exists");
         }
         
         [HttpPost("Login")]
-        public async Task<ActionResult<string>> Login(UserDto request)
+        public async Task<ActionResult<string>> Login(String UserEmail, String UserPassword)
         {
-            var dbuser = await _context.Users.FirstOrDefaultAsync();
-
-            if (dbuser.UserEmail != request.UserEmail)
+            var dbuser = await _context.Users.Where(u => u.UserEmail == UserEmail).FirstOrDefaultAsync();
+            
+            if (dbuser == null)
             {
                 return BadRequest("User not found");
             }
 
-            if(!VerifyPasswordHash(request.UserPassword, dbuser.UserPasswordHash, dbuser.UserPasswordSalt))
+            if(!VerifyPasswordHash(UserPassword, dbuser.UserPasswordHash, dbuser.UserPasswordSalt))
             {
                 return BadRequest("Wrong Password");
             }
@@ -102,24 +101,27 @@ namespace Findmaster.Controllers
             }
         }
 
-        private async void SendVerificationMail(string mail)
+        [HttpPost("SendVerification")]
+        public async Task<IActionResult> SendVerificationMail(string mail)
         {
             Random random = new Random();
             VerificationCode = random.Next(1000, 9999);
             String VerificationCodeString = VerificationCode.ToString();
             EmailService emailService = new EmailService();
             await emailService.SendEmailAsync(mail, "Verification Code", VerificationCodeString);
+            return Ok();
         }
 
-        //placeholder need to think about logic(when connect front to back)
-        private bool CompareVerificationCode(string code)
+        [HttpPost("CompareVerification")]
+        public async Task<IActionResult> CompareVerificationCode(string code)
         {
             int codenumber = int.Parse(code);
+            Console.WriteLine(codenumber + " " + VerificationCode);
             if(codenumber == VerificationCode)
             {
-                return true;    
+                return Ok();    
             }
-            return false;
+            return BadRequest();
         }
     }
 }
