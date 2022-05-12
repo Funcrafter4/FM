@@ -146,8 +146,8 @@ namespace Findmaster.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("UserId"));
 
-                    b.Property<int>("UserType")
-                        .HasColumnType("integer");
+                    b.Property<bool>("UserType")
+                        .HasColumnType("boolean");
 
                     b.HasKey("UserId");
 

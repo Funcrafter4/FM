@@ -8,7 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddDbContext<DatabaseContext>(opt =>
-opt.UseNpgsql("Host = abul.db.elephantsql.com; Port = 5432; Database = gepagwva; Username = gepagwva; Password = QCfayoFrlibAbMUqZiEBXwLKH5ZG0lXM"));
+opt.UseNpgsql("Host = abul.db.elephantsql.com; Port = 5432; Database = asbroxrk; Username = asbroxrk; Password = 3bED_msH9cnUf1UP1YxkBoRrpYGLqtDf"));
 builder.Services.AddControllers();
 builder.Services.AddControllersWithViews();
 builder.Services.AddRouting();

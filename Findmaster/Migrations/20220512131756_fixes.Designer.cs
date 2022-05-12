@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Findmaster.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20220512100322_fixes2")]
-    partial class fixes2
+    [Migration("20220512131756_fixes")]
+    partial class fixes
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -148,8 +148,8 @@ namespace Findmaster.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("UserId"));
 
-                    b.Property<int>("UserType")
-                        .HasColumnType("integer");
+                    b.Property<bool>("UserType")
+                        .HasColumnType("boolean");
 
                     b.HasKey("UserId");
 

@@ -4,6 +4,12 @@ namespace Findmaster.DataAccessLayer.Entity
 {
     public class User_Info
     {
+        public User_Info(string userName, string userSurname)
+        {
+            UserName = userName;
+            UserSurname = userSurname;
+        }
+
         [ForeignKey("UserId")]
         public int UserId { get; set; }
         public string? UserName { get; set; }

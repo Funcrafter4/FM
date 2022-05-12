@@ -1,5 +1,4 @@
 ﻿using Findmaster.DataAccessLayer.DataContext;
-using Findmaster.DataAccessLayer.DTO;
 using Findmaster.DataAccessLayer.Entity;
 using Findmaster.Services;
 using Microsoft.AspNetCore.Http;
@@ -27,14 +26,15 @@ namespace Findmaster.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<ActionResult<User>> Register(String UserEmail, String UserPassword, String UserName, String UserSurname)
+        public async Task<ActionResult<User>> Register(String UserEmail, String UserPassword, String UserName, String UserSurname, bool UserType)
         {
             var dbuser = await _context.Users.Where(u => u.UserEmail == UserEmail).FirstOrDefaultAsync();
             if (dbuser == null)
             {
                 CreatePasswordHash(UserPassword, out byte[] UserPasswordHash, out byte[] UserPasswordSalt);
                 _context.Users.Add(new User(UserEmail, UserPasswordHash, UserPasswordSalt));
-                //_context.Users_Info.Add(user_Info);
+                _context.Users_Info.Add(new User_Info(UserName, UserSurname));
+                _context.Users_Type.Add(new User_Type(UserType));
                 await _context.SaveChangesAsync();
                 return Ok(dbuser);
             }
@@ -109,6 +109,7 @@ namespace Findmaster.Controllers
             String VerificationCodeString = VerificationCode.ToString();
             EmailService emailService = new EmailService();
             await emailService.SendEmailAsync(mail, "Verification Code", VerificationCodeString);
+            Console.WriteLine(VerificationCode);
             return Ok();
         }
 

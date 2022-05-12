@@ -6,7 +6,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Findmaster.Migrations
 {
-    public partial class fixes2 : Migration
+    public partial class fixes : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -73,7 +73,7 @@ namespace Findmaster.Migrations
                 {
                     UserId = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    UserType = table.Column<int>(type: "integer", nullable: false)
+                    UserType = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
