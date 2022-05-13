@@ -40,18 +40,18 @@ namespace Findmaster.Controllers
             }
             return BadRequest("User Exists");
         }
-        
+
         [HttpPost("Login")]
         public async Task<ActionResult<string>> Login(String UserEmail, String UserPassword)
         {
             var dbuser = await _context.Users.Where(u => u.UserEmail == UserEmail).FirstOrDefaultAsync();
-            
+
             if (dbuser == null)
             {
                 return BadRequest("User not found");
             }
 
-            if(!VerifyPasswordHash(UserPassword, dbuser.UserPasswordHash, dbuser.UserPasswordSalt))
+            if (!VerifyPasswordHash(UserPassword, dbuser.UserPasswordHash, dbuser.UserPasswordSalt))
             {
                 return BadRequest("Wrong Password");
             }
@@ -66,7 +66,8 @@ namespace Findmaster.Controllers
         {
             List<Claim> claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Email, user.UserEmail)
+                new Claim(ClaimTypes.Email, user.UserEmail),
+                new Claim(ClaimTypes.NameIdentifier, user.UserId.ToString())
             };
 
             var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(_configuration.GetSection("AppSettings:Token").Value));
@@ -86,7 +87,7 @@ namespace Findmaster.Controllers
 
         private void CreatePasswordHash(string UserPassword, out byte[] UserPasswordHash, out byte[] UserPasswordSalt)
         {
-            using(var hmac = new HMACSHA512())
+            using (var hmac = new HMACSHA512())
             {
                 UserPasswordSalt = hmac.Key;
                 UserPasswordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(UserPassword));
@@ -118,11 +119,24 @@ namespace Findmaster.Controllers
         {
             int codenumber = int.Parse(code);
             Console.WriteLine(codenumber + " " + VerificationCode);
-            if(codenumber == VerificationCode)
+            if (codenumber == VerificationCode)
             {
-                return Ok();    
+                return Ok();
             }
             return BadRequest();
         }
-    }
+
+        [HttpGet("GetId")]
+        public async Task<ActionResult<int>> GetId(String JWT)
+        {
+        string jwt = JWT;
+        var handler = new JwtSecurityTokenHandler();
+        var jsonToken = handler.ReadToken(jwt);
+        var tokenS = jsonToken as JwtSecurityToken;
+        var jti = tokenS.Claims.First(claim => claim.Type == ClaimTypes.NameIdentifier).Value;
+        int userid = int.Parse(jti);
+            
+            return Ok(userid);
+        }
+}
 }
