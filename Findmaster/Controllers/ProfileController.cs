@@ -40,5 +40,19 @@ namespace Findmaster.Controllers
             return Ok(dbUser);
         }
 
+        [HttpGet("Is_Employeer")]
+        public async Task<ActionResult<bool>> IsEmployeer(int UserId)
+        {
+            var dbUser = await _context.Users_Type.FirstOrDefaultAsync(u => u.UserId == UserId);
+            if(dbUser == null)
+            {
+                return BadRequest("User not found");
+            }
+            if (dbUser.UserType == true)
+            {
+                return Ok(true);
+            }
+            return Ok(false);
+        }
     }
 }
