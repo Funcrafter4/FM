@@ -72,18 +72,18 @@ namespace Findmaster.Controllers
         }
 
         [HttpPost("Add_Application")]
-        public async Task<IActionResult> AddApplication(Applications applications)
+        public async Task<IActionResult> AddApplication(int UserId, int VacancyId)
         {
-            _context.Applications.Add(applications);
+            _context.Applications.Add(new Applications(UserId, VacancyId));
             await _context.SaveChangesAsync();
             return Ok();
         }
 
         [HttpPost("Add_Favourite")]
-        public async Task<IActionResult> AddFavourite(Favourite favourite)
+        public async Task<IActionResult> AddFavourite(int UserId, int VacancyId)
         {
             
-            _context.Favourites.Add(favourite);
+            _context.Favourites.Add(new Favourite(UserId,VacancyId));
             await _context.SaveChangesAsync();
             return Ok();
         }

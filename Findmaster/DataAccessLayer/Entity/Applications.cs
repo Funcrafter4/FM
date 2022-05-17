@@ -4,6 +4,11 @@ namespace Findmaster.DataAccessLayer.Entity
 {
     public class Applications
     {
+        public Applications(int userId, int vacancyId)
+        {
+            UserId = userId;
+            VacancyId = vacancyId;
+        }
 
         public int ApplicationsId { get; set; }
         [ForeignKey("UserId")]
