@@ -32,10 +32,10 @@ namespace Findmaster.Controllers
         {
             var dbUser = await _context.Users_Info.FirstOrDefaultAsync(u => u.UserId == UserId);
 
-            
-            dbUser = user_Info;
+                dbUser.UserName = user_Info.UserName;
+                dbUser.UserSurname = user_Info.UserSurname;
 
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
 
             return Ok(dbUser);
         }
