@@ -133,5 +133,35 @@ namespace Findmaster.Controllers
 
             return Ok(dbvacancy);
         }
+
+        [HttpGet("Is_Favourite")]
+        public async Task<ActionResult<bool>> IsFavourite(int UserId, int VacancyId)
+        {
+
+            var dbFavourite = await _context.Favourites.FirstOrDefaultAsync(f => f.UserId == UserId && f.VacancyId == VacancyId);
+            if (dbFavourite == null)
+            {
+                return Ok(false);
+            }
+            else
+            {
+                return Ok(true);
+            }
+        }
+
+        [HttpGet("Is_Application")]
+        public async Task<ActionResult<bool>> IsApplication(int UserId, int VacancyId)
+        {
+
+            var dbApplication = await _context.Applications.FirstOrDefaultAsync(f => f.UserId == UserId && f.VacancyId == VacancyId);
+            if (dbApplication == null)
+            {
+                return Ok(false);
+            }
+            else
+            {
+                return Ok(true);
+            }
+        }
     }
 }
