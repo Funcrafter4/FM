@@ -22,18 +22,18 @@ namespace Findmaster.Controllers
         [HttpGet("{UserId}")]
         public async Task<IActionResult> GetUser(int UserId)
         {
-            var dbUser = await _context.Users.FirstOrDefaultAsync(u => u.UserId == UserId);
+            var dbUser = await _context.Users_Info.FirstOrDefaultAsync(u => u.UserId == UserId);
 
             return Ok(dbUser);
         }
 
         [HttpPut("{UserId}")]
-        public async Task<IActionResult> EditUser(int UserId, User user)
+        public async Task<IActionResult> EditUser(int UserId, User_Info user_Info)
         {
-            var dbUser = await _context.Users.FirstOrDefaultAsync(u => u.UserId == UserId);
+            var dbUser = await _context.Users_Info.FirstOrDefaultAsync(u => u.UserId == UserId);
 
-
-            dbUser = user;
+            
+            dbUser = user_Info;
 
             await _context.SaveChangesAsync();
 
