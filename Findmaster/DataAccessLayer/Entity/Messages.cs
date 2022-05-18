@@ -1,4 +1,6 @@
-﻿namespace Findmaster.DataAccessLayer.Entity
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Findmaster.DataAccessLayer.Entity
 {
     public class Messages
     {
@@ -10,6 +12,7 @@
 
         public int ToUserId { get; set; }
 
-        public Vacancy Vacancy  { get; set; }
+        [ForeignKey("VacancyId")]
+        public int VacancyId { get; set; }
     }
 }

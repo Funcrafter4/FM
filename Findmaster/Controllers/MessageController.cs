@@ -20,9 +20,9 @@ namespace Findmaster.Controllers
 
         [HttpGet("Get_Chat")]
 
-        public async Task<IActionResult> Get_Chat(int FromUserId, int ToUserId)
+        public async Task<IActionResult> Get_Chat(int FromUserId, int ToUserId, int VacancyId)
         {
-            var dbmessages = _context.Messages.Where(m => (m.FromUserId == FromUserId && m.ToUserId == ToUserId) || (m.FromUserId == ToUserId && m.ToUserId == FromUserId));
+            var dbmessages = _context.Messages.Where(m => (((m.FromUserId == FromUserId && m.ToUserId == ToUserId) || (m.FromUserId == ToUserId && m.ToUserId == FromUserId))) && m.VacancyId == VacancyId);
             return Ok(dbmessages);
         }
 
