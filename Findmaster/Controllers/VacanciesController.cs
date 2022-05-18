@@ -26,9 +26,9 @@ namespace Findmaster.Controllers
         }
 
         [HttpPost("Add_Vacancy")]
-        public async Task<IActionResult> AddVacancies(Vacancy vacancy)
+        public async Task<IActionResult> AddVacancies(string VacancyName, int VacancySalary, string VacancyEmployerName,string VacancyAddress,string VacancyRequirements,string VacancyExp, string VacancyEmploymentType,string VacancyDescription)
         {
-            _context.Vacancies.Add(vacancy);
+            _context.Vacancies.Add(new Vacancy(VacancyName, VacancySalary, VacancyEmployerName, VacancyAddress, VacancyRequirements, VacancyExp, VacancyEmploymentType, VacancyDescription));
             await _context.SaveChangesAsync();
             return Ok();
         }
