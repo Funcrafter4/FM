@@ -88,6 +88,15 @@ namespace Findmaster.Controllers
             return Ok();
         }
 
+        [HttpPost("Delete_Favourite")]
+        public async Task<IActionResult> DeleteFavourite(int UserId, int VacancyId)
+        {
+
+            var dbfavourite = _context.Favourites.Where(f => f.UserId == UserId && f.VacancyId == VacancyId).FirstOrDefault();
+            _context.Favourites.Remove(dbfavourite);
+            await _context.SaveChangesAsync();
+            return Ok();
+        }
         [HttpGet("Get_All_Favourites")]
         public async Task<IActionResult> GetFavourites(int UserId)
         {
