@@ -163,5 +163,15 @@ namespace Findmaster.Controllers
                 return Ok(true);
             }
         }
+        [HttpGet("Get_Employer_Id")]
+        public async Task<ActionResult<int>> GetEmployerId(int VacancyId)
+        {
+            var dbUser = _context.Applications.FirstOrDefault(a => a.VacancyId == VacancyId);
+            if(dbUser == null)
+            {
+                return BadRequest("Application doesn't exist");
+            }
+            return Ok(dbUser.UserId);
+        }
     }
 }
