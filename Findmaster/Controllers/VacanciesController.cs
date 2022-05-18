@@ -21,7 +21,7 @@ namespace Findmaster.Controllers
         [HttpGet("Get_All_Vacancies")]
         public async Task<IActionResult> GetVacancies()
         {
-            var vacancies = _context.Vacancies;
+            var vacancies = _context.Vacancies.ToList().OrderBy(v => v.VacancyId);
             return Ok(vacancies);
         }
 
