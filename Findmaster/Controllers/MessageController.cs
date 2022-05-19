@@ -1,8 +1,10 @@
 ﻿using Findmaster.DataAccessLayer.DataContext;
 using Findmaster.DataAccessLayer.Entity;
+using Findmaster.DataAccessLayer.DTO;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+
 
 namespace Findmaster.Controllers
 {
@@ -29,9 +31,14 @@ namespace Findmaster.Controllers
         [HttpGet("Get_Chat_List_Employee")]
         public async Task<IActionResult> Get_Chat_List_Employee(int FromUserId)
         {
+           
             var dbmessages = _context.Messages.Where(m => m.FromUserId == FromUserId).GroupBy(m => new { m.ToUserId, m.FromUserId })
-                .Select(m => m.First())
-                .ToList();
+                .Select(m => m.First()).ToList().Join(_context.Users_Info, m => m.ToUserId, u => u.UserId, (m, u) => new {
+                    UserId = u.UserId,
+                    Name = u.UserName,
+                    Surname = u.UserSurname,
+                    Message = m.Message
+                });
             return Ok(dbmessages);
         }
 
@@ -39,8 +46,14 @@ namespace Findmaster.Controllers
         public async Task<IActionResult> Get_Chat_List_Employer(int ToUserId)
         {
             var dbmessages = _context.Messages.Where(m => m.ToUserId == ToUserId).GroupBy(m => new { m.ToUserId, m.FromUserId })
-                .Select(m => m.First())
-                .ToList();
+                .Select(m => m.First()).ToList().Join(_context.Users_Info, m => m.FromUserId, u => u.UserId, (m, u) => new { 
+                    UserId = u.UserId,
+                    Name = u.UserName,
+                    Surname = u.UserSurname,
+                    Message = m.Message
+                });
+            
+            
             return Ok(dbmessages);
         }
 
