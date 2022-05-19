@@ -26,9 +26,13 @@ namespace Findmaster.Controllers
         }
 
         [HttpPost("Add_Vacancy")]
-        public async Task<IActionResult> AddVacancies(string VacancyName, int VacancySalary, string VacancyEmployerName,string VacancyAddress,string VacancyRequirements,string VacancyExp, string VacancyEmploymentType,string VacancyDescription)
+        public async Task<IActionResult> AddVacancies(string VacancyName, int VacancySalary, string VacancyEmployerName,string VacancyAddress,string VacancyRequirements,string VacancyExp, string VacancyEmploymentType,string VacancyDescription, int UserId)
         {
             _context.Vacancies.Add(new Vacancy(VacancyName, VacancySalary, VacancyEmployerName, VacancyAddress, VacancyRequirements, VacancyExp, VacancyEmploymentType, VacancyDescription));
+            _context.SaveChanges();
+            var lastvacantion = await _context.Vacancies.OrderByDescending(v => v.VacancyId).FirstOrDefaultAsync();
+
+            _context.Applications.Add(new Applications(UserId, lastvacantion.VacancyId));
             await _context.SaveChangesAsync();
             return Ok();
         }
@@ -69,14 +73,6 @@ namespace Findmaster.Controllers
             var vacancies = _context.Vacancies.Where(v => EF.Functions.Like(v.VacancyName, $"%{name}%"));
 
             return Ok(vacancies);
-        }
-
-        [HttpPost("Add_Application")]
-        public async Task<IActionResult> AddApplication(int UserId, int VacancyId)
-        {
-            _context.Applications.Add(new Applications(UserId, VacancyId));
-            await _context.SaveChangesAsync();
-            return Ok();
         }
 
         [HttpPost("Add_Favourite")]
