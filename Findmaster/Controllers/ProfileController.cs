@@ -3,6 +3,7 @@ using Findmaster.DataAccessLayer.DataContext;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Findmaster.DataAccessLayer.DTO;
 
 namespace Findmaster.Controllers
 {
@@ -22,9 +23,13 @@ namespace Findmaster.Controllers
         [HttpGet("{UserId}")]
         public async Task<IActionResult> GetUser(int UserId)
         {
-            var dbUser = await _context.Users_Info.FirstOrDefaultAsync(u => u.UserId == UserId);
+            var dbuser = await _context.Users.FirstOrDefaultAsync(u => u.UserId == UserId);
 
-            return Ok(dbUser);
+            var dbUserinfo = await _context.Users_Info.FirstOrDefaultAsync(u => u.UserId == UserId);
+
+            var userDTO = new UserDTO(dbuser.UserId, dbUserinfo.UserName, dbUserinfo.UserSurname, dbuser.UserEmail);
+
+            return Ok(userDTO);
         }
 
         [HttpPut("{UserId}")]
