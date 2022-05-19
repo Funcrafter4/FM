@@ -43,9 +43,9 @@ namespace Findmaster.Controllers
         }
 
         [HttpGet("Get_Chat_List_Employer")]
-        public async Task<IActionResult> Get_Chat_List_Employer(int ToUserId)
+        public async Task<IActionResult> Get_Chat_List_Employer(int ToUserId, int VacancyId)
         {
-            var dbmessages = _context.Messages.Where(m => m.ToUserId == ToUserId).GroupBy(m => new { m.ToUserId, m.FromUserId })
+            var dbmessages = _context.Messages.Where(m => m.ToUserId == ToUserId && m.VacancyId == VacancyId).GroupBy(m => new { m.ToUserId, m.FromUserId })
                 .Select(m => m.First()).ToList().Join(_context.Users_Info, m => m.FromUserId, u => u.UserId, (m, u) => new { 
                     UserId = u.UserId,
                     Name = u.UserName,
