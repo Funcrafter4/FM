@@ -4,6 +4,14 @@ namespace Findmaster.DataAccessLayer.Entity
 {
     public class Messages
     {
+        public Messages(string message, int fromUserId, int toUserId, int vacancyId)
+        {
+            Message = message;
+            FromUserId = fromUserId;
+            ToUserId = toUserId;
+            VacancyId = vacancyId;
+        }
+
         public int MessagesId { get; set; }
 
         public string Message { get; set; }

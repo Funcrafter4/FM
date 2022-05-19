@@ -59,8 +59,9 @@ namespace Findmaster.Controllers
 
 
         [HttpPost("Send_Message")]
-        public async Task<IActionResult> Send_Message(Messages messages)
+        public async Task<IActionResult> Send_Message(int FromUserId, int ToUserId, string message, int VacancyId)
         {
+            var messages = new Messages(message, FromUserId, ToUserId, VacancyId);
             _context.Messages.Add(messages);
             _context.SaveChanges();
             return Ok(messages);
