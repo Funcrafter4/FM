@@ -53,5 +53,5 @@ jobs:
         with:
           app-name: 'FindMaster'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_EA40667BF2674B0A849F27904B36438B }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_63F48E4D0102412797FA4DED5BF53216 }}
           package: .
